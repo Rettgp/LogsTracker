@@ -19,11 +19,11 @@ export default function Log({ mode }: LogProps) {
         flexGrow: 1,
         }}
     >
-        <PlayerTracker  mode={mode} player={new Player("Player 1", Role.Tank)}/>
-        <PlayerTracker  mode={mode} player={new Player("Player 2", Role.Healer)}/>
-        <PlayerTracker  mode={mode} player={new Player("Player 3", Role.Dps)}/>
-        <PlayerTracker  mode={mode} player={new Player("Player 4", Role.Dps)}/>
-        <PlayerTracker  mode={mode} player={new Player("Player 5", Role.Dps)}/>
+        <PlayerTracker  mode={mode} player={new Player("Player 1", Role.Tank, 97)}/>
+        <PlayerTracker  mode={mode} player={new Player("Player 2", Role.Healer, 85)}/>
+        <PlayerTracker  mode={mode} player={new Player("Player 3", Role.Dps, 55)}/>
+        <PlayerTracker  mode={mode} player={new Player("Player 4", Role.Dps, 28)}/>
+        <PlayerTracker  mode={mode} player={new Player("Player 5", Role.Dps, 21)}/>
     </Stack>
   );
 }
