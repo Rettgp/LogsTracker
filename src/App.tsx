@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import AppAppBar from './components/TopBar';
 import DungeonLog from './components/DungeonLog';
+import { WarcraftLogParser } from './components/WarcraftLogParser';
 
 
 export default function App() {
@@ -19,6 +20,9 @@ export default function App() {
   const toggleColorMode = () => {
     setMode((prev) => (prev === 'dark' ? 'light' : 'dark'));
   };
+
+  let foo = new WarcraftLogParser("https://www.warcraftlogs.com/guild/reports-list/706102");
+  foo.ParseGuildLogs();
 
   return (
     <ThemeProvider theme={defaultTheme}>
