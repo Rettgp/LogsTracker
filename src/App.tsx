@@ -5,11 +5,16 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import AppAppBar from './components/TopBar';
-import Log from './components/Log';
+import DungeonLog from './components/DungeonLog';
+
 
 export default function App() {
   const [mode, setMode] = React.useState<PaletteMode>('dark');
-  const defaultTheme = createTheme({ palette: { mode } });
+  const defaultTheme = createTheme({ 
+    palette: { 
+      mode
+    } 
+  });
 
   const toggleColorMode = () => {
     setMode((prev) => (prev === 'dark' ? 'light' : 'dark'));
@@ -54,7 +59,7 @@ export default function App() {
         </Container>
       </Box>
       <Box sx={{ bgcolor: 'background.default' }}>
-        <Log mode={mode}/>
+        <DungeonLog mode={mode}/>
       </Box>
     </ThemeProvider>
   );

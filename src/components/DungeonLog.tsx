@@ -5,11 +5,11 @@ import PlayerTracker from './PlayerTracker'
 import { Player } from './Player';
 import { Role } from './Player';
 
-interface LogProps {
+interface DungeonLogProps {
   mode: PaletteMode;
 }
 
-export default function Log({ mode }: LogProps) {
+export default function DungeonLog({ mode }: DungeonLogProps) {
   return (
     <Stack
         spacing={1}
