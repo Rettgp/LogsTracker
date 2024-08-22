@@ -36,19 +36,19 @@ function RankColor(parse: number): string {
 
 function RankIcon(parse: number) {
   if (parse <= 24) {
-    return <img src={GreyImg} width={50} height={50} alt="Logo" />;
+    return <img src={GreyImg} width={50} height={50} alt="Logo" style={{background: 'radial-gradient(circle closest-side, '+RankColor(parse)+', transparent)'}}/>;
   } else if (parse >= 25 && parse <= 49) {
-    return <img src={BronzeImg} width={50} height={50} alt="Logo" />;
+    return <img src={BronzeImg} width={50} height={50} alt="Logo" style={{background: 'radial-gradient(circle closest-side, '+RankColor(parse)+', transparent)'}}/>;
   } else if (parse >= 50 && parse <= 74) {
-    return <img src={SilverImg} width={50} height={50} alt="Logo" />;
+    return <img src={SilverImg} width={50} height={50} alt="Logo" style={{background: 'radial-gradient(circle closest-side, '+RankColor(parse)+', transparent)'}}/>;
   } else if (parse >= 75 && parse <= 94) {
-    return <img src={GoldImg} width={50} height={50} alt="Logo" />;
+    return <img src={GoldImg} width={50} height={50} alt="Logo" style={{background: 'radial-gradient(circle closest-side, '+RankColor(parse)+', transparent)'}}/>;
   } else if (parse >= 95 && parse <= 98) {
-    return <img src={SuperGoldImg} width={50} height={50} alt="Logo" />;
+    return <img src={SuperGoldImg} width={50} height={50} alt="Logo" style={{background: 'radial-gradient(circle closest-side, '+RankColor(parse)+', transparent)'}}/>;
   } else if (parse === 99) {
-    return <img src={PlatinumImg} width={50} height={50} alt="Logo" />;
+    return <img src={PlatinumImg} width={50} height={50} alt="Logo" style={{background: 'radial-gradient(circle closest-side, '+RankColor(parse)+', transparent)'}}/>;
   } else {
-    return <img src={DiamondImg} width={50} height={50} alt="Logo" />;
+    return <img src={DiamondImg} width={50} height={50} alt="Logo" style={{background: 'radial-gradient(circle closest-side, '+RankColor(parse)+', transparent)'}}/>;
   }
 }
 
