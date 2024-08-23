@@ -18,22 +18,4 @@ export class DungeonInfo {
 
         return players;
     }
-
-    public GetAverageParseForPlayer(playerName: string) : number {
-        let parses = new Array<number>();
-        for (let encounter of this.encounters) {
-            for (let player of encounter.players) {
-                if (player.name === playerName) {
-
-                }
-            }
-        }
-
-        if (parses.length === 0) {
-            return 0;
-        }
-
-        const averageCalc = (array : any) => array.reduce((a : number, b : number) => a + b) / array.length;
-        return (averageCalc(parses));
-    }
 }

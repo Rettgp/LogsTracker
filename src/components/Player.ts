@@ -26,28 +26,38 @@ enum ClassId {
 export class Player {
   name: string;
   role: Role;
-  parse: number;
+  parses: Map<number, number> = new Map<number, number>();
   classId: ClassId
 
-  constructor(name: string, role: Role, parse: number, classId: ClassId) {
+  constructor(name: string, role: Role, classId: ClassId) {
     this.name = name;
     this.role = role;
-    this.parse = parse;
     this.classId = classId;
   }
 
+  public AverageParse() : number {
+    let parses = Array.from(this.parses.values());
+    if (parses.length === 0) {
+        return 0;
+    }
+
+    const averageCalc = (array : any) => array.reduce((a : number, b : number) => a + b) / array.length;
+    return (Math.round(averageCalc(parses)));
+  }
+
   public ParseIcon() : any {
-    if (this.parse <= 24) {
+    let average = this.AverageParse();
+    if (average <= 24) {
       return GreyImg;
-    } else if (this.parse >= 25 && this.parse <= 49) {
+    } else if (average >= 25 && average <= 49) {
       return BronzeImg;
-    } else if (this.parse >= 50 && this.parse <= 74) {
+    } else if (average >= 50 && average <= 74) {
       return SilverImg;
-    } else if (this.parse >= 75 && this.parse <= 94) {
+    } else if (average >= 75 && average <= 94) {
       return GoldImg;
-    } else if (this.parse >= 95 && this.parse <= 98) {
+    } else if (average >= 95 && average <= 98) {
       return SuperGoldImg;
-    } else if (this.parse === 99) {
+    } else if (average === 99) {
       return PlatinumImg
     } else {
       return DiamondImg;

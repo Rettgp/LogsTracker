@@ -50,23 +50,41 @@ export class WarcraftLogParser {
                 const guildLogs : any = await this.client.request(GET_GUILD_LOGS, {id: guildId});
                 const reportIds = guildLogs.reportData.reports.data;
                 let encounters = new Array<Encounter>
+                let players = new Map<number, Player>()
                 for (let reportId of reportIds) {
                     let rankings : any = await this.client.request(GET_RANKINGS_FOR_LOG, {id: reportId.code});
                     let encountersData = rankings.reportData.report.rankings.data;
                     for (let encounterData of encountersData) {
                         let encounterName = encounterData.encounter.name;
-                        let players: Array<Player> = new Array<Player>();
                         for (let tankData of encounterData.roles.tanks.characters) { // TODO: Handle No tanks 
-                            players.push(new Player(tankData.name, Role.Tank, tankData.rankPercent, tankData.class));
+                            let player = players.get(tankData.id)
+                            if (player === undefined) {
+                                player = new Player(tankData.name, Role.Tank, tankData.class);
+                                players.set(tankData.id, player);
+                            }
+
+                            player?.parses.set(encounterData.encounter.id, tankData.rankPercent);
                         }
                         for (let healerData of encounterData.roles.healers.characters) { // TODO: Handle No tanks 
-                            players.push(new Player(healerData.name, Role.Healer, healerData.rankPercent, healerData.class));
+                            let player = players.get(healerData.id)
+                            if (player === undefined) {
+                                player = new Player(healerData.name, Role.Healer, healerData.class);
+                                players.set(healerData.id, player);
+                            }
+
+                            player?.parses.set(encounterData.encounter.id, healerData.rankPercent);
                         }
                         for (let dpsData of encounterData.roles.dps.characters) { // TODO: Handle No tanks 
-                            players.push(new Player(dpsData.name, Role.Dps, dpsData.rankPercent, dpsData.class));
+                            let player = players.get(dpsData.id)
+                            if (player === undefined) {
+                                player = new Player(dpsData.name, Role.Dps, dpsData.class);
+                                players.set(dpsData.id, player);
+                            }
+
+                            player?.parses.set(encounterData.encounter.id, dpsData.rankPercent);
                         }
 
-                        encounters.push(new Encounter(encounterName, players));
+                        encounters.push(new Encounter(encounterData.encounter.id, encounterName, Array.from(players.values())));
                     }
                 }
 

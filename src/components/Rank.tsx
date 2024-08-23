@@ -13,7 +13,7 @@ interface RankProps {
 
 
 function RankIcon(player: Player) {
-  return <img src={player.ParseIcon()} width={50} height={50} alt="Logo" style={{background: 'radial-gradient(circle closest-side, '+ParseColor(player.parse)+', transparent)'}}/>;
+  return <img src={player.ParseIcon()} width={50} height={50} alt="Logo" style={{background: 'radial-gradient(circle closest-side, '+ParseColor(player.AverageParse())+', transparent)'}}/>;
 }
 
 export default function Rank({ mode, player }: RankProps) {
@@ -32,10 +32,10 @@ export default function Rank({ mode, player }: RankProps) {
               flexDirection: { xs: 'column', md: 'row' },
               alignSelf: 'center',
               textAlign: 'center',
-              color: ParseColor(player.parse)
+              color: ParseColor(player.AverageParse())
             }}
           >
-            {player.parse}
+            {player.AverageParse()}
         </Typography>
         </Stack>
     </Box>
