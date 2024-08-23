@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, PaletteMode, Typography } from '@mui/material';
 import { alpha } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -7,6 +7,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import AppAppBar from './components/TopBar';
 import DungeonLog from './components/DungeonLog';
 import { WarcraftLogParser } from './components/WarcraftLogParser';
+import { DungeonInfo } from './components/DungeonInfo';
 
 
 export default function App() {
@@ -22,7 +23,24 @@ export default function App() {
   };
 
   let foo = new WarcraftLogParser();
-  foo.ParseGuildLogs(+"706102");
+
+  function GenerateDungeons() {
+    const [data, setData] = useState<DungeonInfo | null>(null);;
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+      foo.ParseGuildLogs(+"706102").then((dungeon) => {
+        setLoading(false);
+        setData(dungeon)
+      });
+    }, []);
+
+    if (loading) {
+      return <div>Loading...</div>; // Render a loading indicator
+    }
+
+    return <DungeonLog mode={mode} dungeon={data}/>; // Render the actual data
+  }
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -63,7 +81,7 @@ export default function App() {
         </Container>
       </Box>
       <Box sx={{ bgcolor: 'background.default' }}>
-        <DungeonLog mode={mode}/>
+        {GenerateDungeons()}
       </Box>
     </ThemeProvider>
   );

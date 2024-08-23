@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { Player } from './Player';
+import { ParseColor } from './Colors';
 
 interface RankProps {
   mode: PaletteMode;
@@ -12,7 +13,7 @@ interface RankProps {
 
 
 function RankIcon(player: Player) {
-  return <img src={player.ParseIcon()} width={50} height={50} alt="Logo" style={{background: 'radial-gradient(circle closest-side, '+player.ParseColor()+', transparent)'}}/>;
+  return <img src={player.ParseIcon()} width={50} height={50} alt="Logo" style={{background: 'radial-gradient(circle closest-side, '+ParseColor(player.parse)+', transparent)'}}/>;
 }
 
 export default function Rank({ mode, player }: RankProps) {
@@ -31,7 +32,7 @@ export default function Rank({ mode, player }: RankProps) {
               flexDirection: { xs: 'column', md: 'row' },
               alignSelf: 'center',
               textAlign: 'center',
-              color: player.ParseColor()
+              color: ParseColor(player.parse)
             }}
           >
             {player.parse}

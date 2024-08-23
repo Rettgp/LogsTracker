@@ -6,10 +6,12 @@ import Card from '@mui/material/Card';
 import Box from '@mui/material/Box';
 import { Player } from './Player';
 import { Equalizer } from '@mui/icons-material';
+import { ParseColor } from './Colors';
 
-interface BossLogProps {
+interface EncounterLogProps {
   mode: PaletteMode;
-  player: Player;
+  name: string;
+  parse: number;
   sx: any;
 }
 
@@ -20,11 +22,11 @@ const SkullIcon = createSvgIcon(
   'Skull',
 );
 
-export default function BossLog({ mode, player, sx }: BossLogProps) {
+export default function EncounterLog({ mode, name, parse, sx }: EncounterLogProps) {
   return (
     <Box sx={sx}>
         <Typography
-            variant="h6"
+            variant="subtitle2"
             fontWeight="bold"
             sx={{
             flexDirection: { xs: 'column', md: 'row' },
@@ -32,15 +34,15 @@ export default function BossLog({ mode, player, sx }: BossLogProps) {
             textAlign: 'left',
             }}
         >
-            Boss title
+            {name}
         </Typography>
         <Stack spacing={1} direction="row">
             <img src="https://assets.rpglogs.com/img/warcraft/bosses/2688-icon.jpg" width="70px" height="70px"></img>
             <Stack spacing={1}>
-                <Chip label={<Typography variant="h6" fontWeight="bold">{player.parse}</Typography>} icon={<Equalizer/>} 
-                sx={{alignSelf: 'center', height: '50%', bgcolor: player.ParseColor()}}
+                <Chip label={<Typography variant="h6" fontWeight="bold">{parse}</Typography>} icon={<Equalizer/>} 
+                sx={{alignSelf: 'center', height: '50%', bgcolor: ParseColor(parse)}}
                 ></Chip>
-                <Chip label={<Typography variant="h6" fontWeight="bold">15</Typography>} color="error" icon={<SkullIcon/>} 
+                <Chip label={<Typography variant="h6" fontWeight="bold">0</Typography>} color="error" icon={<SkullIcon/>} 
                 sx={{alignSelf: 'center', height: '50%'}}
                 ></Chip>
             </Stack> 

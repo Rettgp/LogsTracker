@@ -9,14 +9,15 @@ import Box from '@mui/material/Box';
 import ShieldIcon from '@mui/icons-material/Shield';
 import HealIcon from '@mui/icons-material/LocalHospital';
 import Rank from './Rank';
-import { indigo, green, red } from '@mui/material/colors';
-import { Player } from './Player';
-import { Role } from './Player';
-import BossLog from './BossLog';
+import { indigo, green } from '@mui/material/colors';
+import { Player, Role } from './Player';
+import { Encounter } from './Encounter';
+import EncounterLog from './EncounterLog';
 
 interface PlayerTrackerProps {
   mode: PaletteMode;
   player: Player;
+  encounters: Array<Encounter>;
 }
 
 const SwordIcon = createSvgIcon(
@@ -37,7 +38,16 @@ function RoleIcon(role: Role) {
   }
 }
 
-export default function PlayerTracker({ mode, player }: PlayerTrackerProps) {
+function GenerateEncounters(mode: PaletteMode, player: Player, encounters: Array<Encounter>) {
+  if (encounters === null) {
+    return;
+  }
+  return encounters.map((element, index) => 
+    <EncounterLog key={index} mode={mode} name={element.name} parse={element.GetParseForPlayer(player.name)} sx={{ height: '100%', width: '20%' }}></EncounterLog>
+  );
+}
+
+export default function PlayerTracker({ mode, player, encounters }: PlayerTrackerProps) {
   return (
     <Box>
       <Card sx={{p: 2, width: '100%'}}>
@@ -48,12 +58,12 @@ export default function PlayerTracker({ mode, player }: PlayerTrackerProps) {
         >
             <Rank mode={mode} player={player}/>
             <Typography
-                variant="h4"
                 sx={{
-                  display: 'flex',
-                  flexDirection: { xs: 'column', md: 'row' },
+                  typography: { ld: 'h6', md: 'subtitle1', sm: 'body1', xs: 'body2' },
                   alignSelf: 'center',
                   textAlign: 'center',
+                  width: '10%',
+                  minWidth: '10%',
                 }}
               >
                 {player.name}
@@ -61,10 +71,7 @@ export default function PlayerTracker({ mode, player }: PlayerTrackerProps) {
             {RoleIcon(player.role)}
             <Divider orientation="vertical" variant="middle" flexItem />
             <Stack direction="row" spacing={1} sx={{ flexGrow: 1 }}>
-                <BossLog mode={mode} player={player} sx={{ height: '100%', width: '20%' }}></BossLog>
-                <BossLog mode={mode} player={player} sx={{ height: '100%', width: '20%' }}></BossLog>
-                <BossLog mode={mode} player={player} sx={{ height: '100%', width: '20%' }}></BossLog>
-                <BossLog mode={mode} player={player} sx={{ height: '100%', width: '20%' }}></BossLog>
+                {GenerateEncounters(mode, player, encounters)}
             </Stack>
         </Stack>
       </Card>

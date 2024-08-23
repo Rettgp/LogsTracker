@@ -4,26 +4,33 @@ import Box from '@mui/material/Box';
 import PlayerTracker from './PlayerTracker'
 import { Player } from './Player';
 import { Role } from './Player';
+import { DungeonInfo } from './DungeonInfo';
 
 interface DungeonLogProps {
   mode: PaletteMode;
+  dungeon: any;
 }
 
-export default function DungeonLog({ mode }: DungeonLogProps) {
+function GeneratePlayers(mode: PaletteMode, dungeon: DungeonInfo) {
+  if (dungeon === null) {
+    return;
+  }
+  return dungeon.GetParticipatingPlayers().map((element, index) => 
+    <PlayerTracker mode={mode} player={element} encounters={dungeon.encounters} key={index}/>
+  );
+}
+
+export default function DungeonLog({ mode, dungeon }: DungeonLogProps) {
   return (
     <Stack
-        spacing={1}
-        sx={{
+      spacing={1}
+      sx={{
         p: 2,
         backgroundColor: 'background.paper',
         flexGrow: 1,
-        }}
+      }}
     >
-        <PlayerTracker  mode={mode} player={new Player("Player 1", Role.Tank, 97)}/>
-        <PlayerTracker  mode={mode} player={new Player("Player 2", Role.Healer, 85)}/>
-        <PlayerTracker  mode={mode} player={new Player("Player 3", Role.Dps, 55)}/>
-        <PlayerTracker  mode={mode} player={new Player("Player 4", Role.Dps, 28)}/>
-        <PlayerTracker  mode={mode} player={new Player("Player 5", Role.Dps, 21)}/>
+      {GeneratePlayers(mode, dungeon)}
     </Stack>
   );
 }

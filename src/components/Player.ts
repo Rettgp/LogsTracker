@@ -6,33 +6,34 @@ import SuperGoldImg from '../images/super-gold.png';
 import PlatinumImg from '../images/platinum.png';
 import DiamondImg from '../images/diamond.png';
 
+enum ClassId {
+    Warrior = 11,
+    Paladin = 6,
+    Hunter = 3,
+    Rogue = 8,
+    Priest = 7,
+    Shaman = 9,
+    Mage = 4,
+    Warlock = 10,
+    Monk = 13,
+    Druid = 2,
+    DemonHunter = 12,
+    DeathKnight = 1,
+    Evoker = 13
+}
+
+
 export class Player {
   name: string;
   role: Role;
   parse: number;
+  classId: ClassId
 
-  constructor(name: string, role: Role, parse: number) {
+  constructor(name: string, role: Role, parse: number, classId: ClassId) {
     this.name = name;
     this.role = role;
     this.parse = parse;
-  }
-
-  public ParseColor() : string {
-    if (this.parse <= 24) {
-      return "#666666";
-    } else if (this.parse >= 25 && this.parse <= 49) {
-      return "#1eff00";
-    } else if (this.parse >= 50 && this.parse <= 74) {
-      return "#0070ff";
-    } else if (this.parse >= 75 && this.parse <= 94) {
-      return "#a335ee";
-    } else if (this.parse >= 95 && this.parse <= 98) {
-      return "#ff8000";
-    } else if (this.parse === 99) {
-      return "#e268a8";
-    } else {
-      return "#e5cc80";
-    }
+    this.classId = classId;
   }
 
   public ParseIcon() : any {
