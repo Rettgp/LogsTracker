@@ -43,7 +43,7 @@ function GenerateEncounters(mode: PaletteMode, player: Player, encounters: Array
     return;
   }
   return encounters.map((element, index) => 
-    <EncounterLog key={index} mode={mode} name={element.name} parse={player.parses.get(element.id) ?? 0} sx={{ height: '100%', width: '20%' }}></EncounterLog>
+    <EncounterLog key={index} mode={mode} id={element.id} name={element.name} parse={player.parses.get(element.id) ?? 0} sx={{ height: '100%', width: '20%' }}></EncounterLog>
   );
 }
 

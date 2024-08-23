@@ -12,6 +12,7 @@ interface EncounterLogProps {
   mode: PaletteMode;
   name: string;
   parse: number;
+  id: number;
   sx: any;
 }
 
@@ -22,7 +23,12 @@ const SkullIcon = createSvgIcon(
   'Skull',
 );
 
-export default function EncounterLog({ mode, name, parse, sx }: EncounterLogProps) {
+function GetBossImage(id: number) {
+  const src = `https://assets.rpglogs.com/img/warcraft/bosses/${id}-icon.jpg`
+  return <img src={src} width="70px" height="70px"></img>
+}
+
+export default function EncounterLog({ mode, name, id, parse, sx }: EncounterLogProps) {
   return (
     <Box sx={sx}>
         <Typography
@@ -37,7 +43,7 @@ export default function EncounterLog({ mode, name, parse, sx }: EncounterLogProp
             {name}
         </Typography>
         <Stack spacing={1} direction="row">
-            <img src="https://assets.rpglogs.com/img/warcraft/bosses/2688-icon.jpg" width="70px" height="70px"></img>
+            {GetBossImage(id)}
             <Stack spacing={1}>
                 <Chip label={<Typography variant="h6" fontWeight="bold">{parse}</Typography>} icon={<Equalizer/>} 
                 sx={{alignSelf: 'center', height: '50%', bgcolor: ParseColor(parse)}}
