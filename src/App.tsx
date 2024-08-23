@@ -21,8 +21,8 @@ export default function App() {
     setMode((prev) => (prev === 'dark' ? 'light' : 'dark'));
   };
 
-  let foo = new WarcraftLogParser("https://www.warcraftlogs.com/guild/reports-list/706102");
-  foo.ParseGuildLogs();
+  let foo = new WarcraftLogParser();
+  foo.ParseGuildLogs(+"706102");
 
   return (
     <ThemeProvider theme={defaultTheme}>

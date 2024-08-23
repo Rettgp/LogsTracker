@@ -1,22 +1,49 @@
-import puppeteer from "puppeteer"
+import { gql, GraphQLClient  } from 'graphql-request'
+import OAuth2 from 'client-oauth2';
+
+
+const GET_GUILD_LOGS = gql`
+    query GetGuildLogs($id: Int!) {
+        reportData {
+            reports(guildID: $id, limit: 10) {
+                data {
+                    code
+                }
+            }
+        }
+    }
+`;
 
 export class WarcraftLogParser {
-    url: string;
-    guildLogs: Array<string> = []
+    logAuth: OAuth2
+    clientId: string = '9cd48cf1-50e7-4a2f-928d-a09311049641'
+    clientSecret: string = '8R0FvANFDosuMX1nxcQ3cscxPLqYg5JZoRLDcyVH'
+    oauthPromise: any = null
+    endpoint: string = 'https://www.warcraftlogs.com/api/v2/client'
+    client: GraphQLClient = new GraphQLClient(this.endpoint)
 
-    constructor(url: string) {
-        this.url = url;
+    constructor() {
+        this.logAuth = new OAuth2({
+            clientId: this.clientId,
+            clientSecret: this.clientSecret,
+            accessTokenUri: 'https://www.warcraftlogs.com/oauth/token'
+        });
     }
 
-    public async ParseGuildLogs() {
-        const browser = await puppeteer.launch();
-        const page = await browser.newPage();
-        await page.goto(this.url);
-        await page.waitForSelector('#reports-table');
-        const dataElements = await page.$$('#reports-table tbody tr td a'); // Replace with a selector from the React app
-        for (const element of dataElements) {
-            const text = await page.evaluate(element => element.href, element);
-            console.log(text)
+    public ParseGuildLogs(guildId: number) {
+        this.ObtainAccessToken().then(async (token) => {
+            this.client.setHeader("Authorization", `Bearer ${token.accessToken}`);
+            const data = await this.client.request(GET_GUILD_LOGS, {id: guildId});
+            console.log(data);
+        });
+    }
+
+    private ObtainAccessToken() : Promise<OAuth2.Token> {
+        // todo: need retries and error catching
+        if (this.oauthPromise !== null) {
+            return this.oauthPromise;
         }
+        this.oauthPromise = this.logAuth.credentials.getToken();
+        return this.oauthPromise;
     }
 }
