@@ -27,12 +27,12 @@ export class Player {
   name: string;
   role: Role;
   parses: Map<number, number> = new Map<number, number>();
-  classId: ClassId
+  className: string
 
-  constructor(name: string, role: Role, classId: ClassId) {
+  constructor(name: string, role: Role, className: string) {
     this.name = name;
     this.role = role;
-    this.classId = classId;
+    this.className = className;
   }
 
   public AverageParse() : number {

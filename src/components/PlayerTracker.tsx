@@ -12,6 +12,7 @@ import Rank from './Rank';
 import { indigo, green } from '@mui/material/colors';
 import { Player, Role } from './Player';
 import { Encounter } from './Encounter';
+import { ClassColor } from './Colors';
 import EncounterLog from './EncounterLog';
 
 interface PlayerTrackerProps {
@@ -63,6 +64,7 @@ export default function PlayerTracker({ mode, player, encounters }: PlayerTracke
                   alignSelf: 'center',
                   textAlign: 'center',
                   width: '10%',
+                  color: ClassColor(player.className),
                   minWidth: '10%',
                 }}
               >

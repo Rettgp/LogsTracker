@@ -15,7 +15,7 @@ function GeneratePlayers(mode: PaletteMode, dungeon: DungeonInfo) {
   if (dungeon === null) {
     return;
   }
-  return dungeon.GetParticipatingPlayers().map((element, index) => 
+  return dungeon.GetPlayersInRankingOrder().map((element, index) => 
     <PlayerTracker mode={mode} player={element} encounters={dungeon.encounters} key={index}/>
   );
 }

@@ -48,9 +48,6 @@ export default function EncounterLog({ mode, name, id, parse, sx }: EncounterLog
                 <Chip label={<Typography variant="h6" fontWeight="bold">{parse}</Typography>} icon={<Equalizer/>} 
                 sx={{alignSelf: 'center', height: '50%', bgcolor: ParseColor(parse)}}
                 ></Chip>
-                <Chip label={<Typography variant="h6" fontWeight="bold">0</Typography>} color="error" icon={<SkullIcon/>} 
-                sx={{alignSelf: 'center', height: '50%'}}
-                ></Chip>
             </Stack> 
         </Stack>
     </Box>
