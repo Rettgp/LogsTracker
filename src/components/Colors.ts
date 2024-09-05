@@ -19,31 +19,31 @@ export function ParseColor(parse : number) : string {
 export function ClassColor(className : string) : string {
     switch(className) {
         case "Warrior":
-            return "#666666";
+            return "#c69b6d";
         case "Paladin":
-            return "#666666";
+            return "#f48CBA";
         case "Hunter":
-            return "#666666";
+            return "#aad372";
         case "Rogue":
-            return "#666666";
+            return "#fff468";
         case "Priest":
-            return "#666666";
+            return "#ffffff";
         case "Shaman":
-            return "#666666";
+            return "#0070dd";
         case "Mage":
-            return "#666666";
+            return "#3fc7eb";
         case "Warlock":
-            return "#666666";
+            return "#8788ee";
         case "Monk":
-            return "#666666";
+            return "#00ff98";
         case "Druid":
-            return "#666666";
+            return "#ff7c0a";
         case "DemonHunter":
-            return "#666666";
+            return "#a330c9";
         case "DeathKnight":
-            return "#666666";
+            return "#c41e3a";
         case "Evoker":
-            return "#666666";
+            return "#33947f";
         default:
             return "#666666";
     }
